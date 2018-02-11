@@ -7,7 +7,8 @@ window.onload = function() {
   $("#lap").click(stopwatch.recordLap);
   $("#stop").click(stopwatch.stop);
   $("#reset").click(stopwatch.reset);
-  $("#start").click(stopwatch.start);
+  //$("#start").click(stopwatch.start);
+  $('#start').on("click", stopwatch.start);
 };
 
 //  Variable that will hold our setInterval that runs the stopwatch
@@ -29,8 +30,11 @@ var stopwatch = {
     stopwatch.lap = 1;
 
     //  TODO: Change the "display" div to "00:00."
-    stopwatch.stop()
-    $('#display').text("00:00")
+    stopwatch.stop() // stop timer
+    $('#display').text("00:00")   // set display text 
+    $('#start').attr("disabled", false) // enable button
+    clockRunning = false; // set clock running attribute to false    
+    $('#laps').empty() // remove laps
   },
 
   // works
@@ -42,6 +46,8 @@ var stopwatch = {
         intervalId = setInterval(function() {
           stopwatch.count()
         }, 1000)        
+        $('#start').attr("disabled", true)
+        clockRunning = true
       }
   },
 
@@ -62,11 +68,11 @@ var stopwatch = {
 
       //  TODO: Increment lap by 1. Remember, we can't use "this" here.
     
-    var newTime = stopwatch.timeConverter(stopwatch.time);
-    console.log(newTime)    
+    var newTime = stopwatch.timeConverter(stopwatch.time);     
     var newLap = $('<div>')
-    newLap.text(newTime)
-    
+    //newLap.text(newTime)
+    newLap.html("<strong>" + newTime + "</strong>")
+
     $('#laps').append(newLap);
     lap++
   },

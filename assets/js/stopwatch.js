@@ -1,14 +1,12 @@
 //  Interval Exercise (follow the instructions below).
 
 //  This code will run as soon as the page loads.
-window.onload = function() {
-    
+window.onload = function() {    
   //  Click events are done for us:
-  $("#lap").click(stopwatch.recordLap);
-  $("#stop").click(stopwatch.stop);
-  $("#reset").click(stopwatch.reset);
-  //$("#start").click(stopwatch.start);
-  $('#start-resume').on("click", stopwatch.start);
+  $('#lap').on('click', stopwatch.recordLap);
+  $('#stop').on('click', stopwatch.stop)
+  $('#reset').on('click', stopwatch.reset)
+  $('#start-resume').on("click", stopwatch.start)
 };
 
 //  Variable that will hold our setInterval that runs the stopwatch

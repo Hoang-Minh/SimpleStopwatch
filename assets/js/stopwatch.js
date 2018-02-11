@@ -8,7 +8,7 @@ window.onload = function() {
   $("#stop").click(stopwatch.stop);
   $("#reset").click(stopwatch.reset);
   //$("#start").click(stopwatch.start);
-  $('#start').on("click", stopwatch.start);
+  $('#start-resume').on("click", stopwatch.start);
 };
 
 //  Variable that will hold our setInterval that runs the stopwatch
@@ -31,8 +31,9 @@ var stopwatch = {
 
     //  TODO: Change the "display" div to "00:00."
     stopwatch.stop() // stop timer
-    $('#display').text("00:00")   // set display text 
-    $('#start').attr("disabled", false) // enable button
+    $('#display').text("00:00")   // set display text
+    $('#start-resume').text("Start")
+    $('#start-resume').attr("disabled", false) // enable button
     clockRunning = false; // set clock running attribute to false    
     $('#laps').empty() // remove laps
   },
@@ -42,11 +43,14 @@ var stopwatch = {
 
       //  TODO: Use setInterval to start the count here and set the clock to running.
       if (!clockRunning) {
+        if($('#start-resume').text() === 'Resume') {
+          $('#start-resume').text('Start')
+        }
         //time = 0
         intervalId = setInterval(function() {
           stopwatch.count()
         }, 1000)        
-        $('#start').attr("disabled", true)
+        $('#start-resume').attr("disabled", true)
         clockRunning = true
       }
   },
@@ -55,7 +59,10 @@ var stopwatch = {
   stop: function() {
 
     //  TODO: Use clearInterval to stop the count here and set the clock to not be running.
-    clearInterval(intervalId)
+    clearInterval(intervalId)    
+    $('#start-resume').text("Resume");
+    $('#start-resume').attr("disabled", false)
+    clockRunning = false;
   },
 
 
@@ -69,10 +76,8 @@ var stopwatch = {
       //  TODO: Increment lap by 1. Remember, we can't use "this" here.
     
     var newTime = stopwatch.timeConverter(stopwatch.time);     
-    var newLap = $('<div>')
-    //newLap.text(newTime)
+    var newLap = $('<div>')    
     newLap.html("<strong>" + newTime + "</strong>")
-
     $('#laps').append(newLap);
     lap++
   },
